@@ -1,0 +1,15 @@
+{% extends 'shared/base.html' %}
+
+{% block main_content %}
+    <div class="w3-content" style="max-width:2000px;margin-top:46px">
+        <form action="/uploader" method="POST"
+              enctype="multipart/form-data">
+            <input type="file" name="file"/>
+            <input type="submit"/>
+        </form>
+
+        <h6>{{ msg }}</h6>
+
+
+    </div>
+{% endblock %}
