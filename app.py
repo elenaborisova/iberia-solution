@@ -1,9 +1,13 @@
 import os
+import sys
+
 from flask import Flask, render_template, request, url_for
 from werkzeug.utils import secure_filename, redirect
 import pandas as pd
+import requests
+import cx_Oracle
 
-app = Flask(__name__, static_url_path='/static')
+app = Flask(__name__, static_url_path='/static', template_folder='templates')
 SECRET_KEY = os.urandom(32)
 app.config['SECRET_KEY'] = SECRET_KEY
 
@@ -11,6 +15,15 @@ UPLOAD_FOLDER = './file_uploads'
 ALLOWED_EXTENSIONS = {'xlsx', 'xlsm', 'xltx', 'xltm', 'xml'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1000 * 1000
+
+os.environ['TNS_ADMIN'] = '/Users/elenaborisova/Documents/GitHub/iberia-solution/wallet'
+lib_dir = os.path.join(os.environ.get("HOME"), "Downloads", "instantclient_19_8")
+cx_Oracle.init_oracle_client(lib_dir=lib_dir)
+connection = cx_Oracle.connect("tip", "AaZZ0r_cle#1", "iberiadb_medium")
+cursor = connection.cursor()
+cursor.execute("select * from MONTHLY_INCIDENTS_RAISED where inc_code = 'INC000001470894'")
+r = cursor.fetchone()
+print(r)
 
 
 @app.route('/')
@@ -58,6 +71,7 @@ def modify_uploaded_file(filename):
     clean_filename = filename.rsplit('.', 1)[0]
     read_file.to_csv(f'./file_uploads/{clean_filename}.csv', index=None, header=False)
     os.remove(f'./file_uploads/{filename}')
+    return f'{clean_filename}.csv'
 
 
 @app.route('/upload/', defaults={'msg': None})
@@ -82,8 +96,16 @@ def handle_upload():
         if file:
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            modify_uploaded_file(filename)
+            filename_csv = modify_uploaded_file(filename)
+            process_incraised_data(filename_csv)
             return redirect(url_for('upload_file', msg='File uploaded successfully'))
+
+
+def process_incraised_data(filename):
+    # headers = CaseInsensitiveDict()
+    # headers["Accept"] = "application/json"
+    url = 'https://g5cb9edca1cffa5-iberiadb.adb.eu-milan-1.oraclecloudapps.com/ords/tip/monthly_incidents_raised/incraised/'
+    data = requests.get(url)
 
 
 if __name__ == '__main__':
