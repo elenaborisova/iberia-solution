@@ -1,5 +1,46 @@
 {% extends 'shared/base.html' %}
 
+{% block site_title %}
+    Register
+{% endblock %}
+
+{% block style_links %}
+    <link href="https://unpkg.com/ionicons@4.2.2/dist/css/ionicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/css/register.css">
+{% endblock %}
+
 {% block main_content %}
+    <div class="w3-content" style="max-width:2000px;margin-top:46px">
+
+        <div class="container" id="container">
+
+            <div class="form-container sign-in-container">
+                <form action="/register" method="POST">
+                    <h1>Register</h1>
+                    <span>Create a new user account</span>
+                    <input name="username" id="username" type="text" placeholder="Username">
+                    <input name="email" id="email" type="text" placeholder="Email">
+                    <input name="password" id="password" type="password" placeholder="Password">
+                    <button>Register</button>
+                </form>
+            </div>
+            <div class="overlay-container">
+                <div class="overlay">
+                    <div class="overlay-panel overlay-right">
+                        <h1>Already have an account?</h1>
+                        <p>Log in to your account to explore all Iberia Business Solutions</p>
+                        <form action="/login" method="POST">
+                            <button type="submit" class="ghost" id="signUp">Log In</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="/static/js/register.js"></script>
+    <script src="https://unpkg.com/ionicons@4.2.2/dist/ionicons.js"></script>
 
 {% endblock %}
+

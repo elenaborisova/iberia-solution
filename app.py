@@ -1,7 +1,6 @@
 import os
-import sys
-
 from flask import Flask, render_template, request, url_for
+from werkzeug.security import generate_password_hash
 from werkzeug.utils import secure_filename, redirect
 import pandas as pd
 import requests
@@ -21,9 +20,9 @@ lib_dir = os.path.join(os.environ.get("HOME"), "Downloads", "instantclient_19_8"
 cx_Oracle.init_oracle_client(lib_dir=lib_dir)
 connection = cx_Oracle.connect("tip", "AaZZ0r_cle#1", "iberiadb_medium")
 cursor = connection.cursor()
-cursor.execute("select * from MONTHLY_INCIDENTS_RAISED where inc_code = 'INC000001470894'")
-r = cursor.fetchone()
-print(r)
+# cursor.execute("select * from MONTHLY_INCIDENTS_RAISED where inc_code = 'INC000001470894'")
+# r = cursor.fetchone()
+# print(r)
 
 
 @app.route('/')
