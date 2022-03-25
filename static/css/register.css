@@ -1,20 +1,21 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
 @keyframes animatedBackground {
-  from {
-    background-position: 0 0;
-  }
-  to {
-    background-position: 3px 0;
-  }
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: 3px 0;
+    }
 }
 
 @keyframes animatedBackground {
-  from {
-    background-position: -3px 0;
-  }
-  to {
-    background-position: 3px 0;
-  }
+    from {
+        background-position: -3px 0;
+    }
+    to {
+        background-position: 3px 0;
+    }
 }
 
 
@@ -35,8 +36,14 @@ main {
     background-repeat: repeat-x;
     animation: animatedBackground linear infinite alternate;
     animation-duration: 1.5s;
-    background-position-x:0;
-    background-position-y:360px;
+    background-position-x: 0;
+    background-position-y: 360px;
+}
+
+h6 {
+    display: inline-block;
+    margin-top: 50px;
+    margin-left: 500px;
 }
 
 h1 {
@@ -68,7 +75,7 @@ span {
     min-height: 480px;
     opacity: 0.8;
     margin-left: 350px;
-    margin-top: 100px;
+    margin-top: 20px;
 }
 
 .form-container form {

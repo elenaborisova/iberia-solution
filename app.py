@@ -7,7 +7,6 @@ from werkzeug.utils import secure_filename, redirect
 import kpi_data
 from helpers import allowed_file, modify_uploaded_file
 
-
 # Configuration
 app = Flask(__name__, static_url_path='/static', template_folder='templates')
 SECRET_KEY = os.urandom(32)
@@ -17,6 +16,7 @@ UPLOAD_FOLDER = './file_uploads'
 ALLOWED_EXTENSIONS = {'xlsx', 'xlsm', 'xltx', 'xltm', 'xml'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1000 * 1000
+
 
 # # Oracle Client config
 # os.environ['TNS_ADMIN'] = '/Users/elenaborisova/Documents/GitHub/iberia-solution/wallet'
@@ -31,9 +31,11 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/register', methods=['GET'])
-def register():
-    return render_template('register.html')
+@app.route('/register/', defaults={'msg': ' '})
+@app.route('/register/<msg>', methods=['GET'])
+# @app.route('/register', methods=['GET'])
+def register(msg):
+    return render_template('register.html', msg=msg)
 
 
 @app.route('/register', methods=['POST'])
@@ -50,7 +52,7 @@ def handle_register():
     # cursor.execute(insert_query)
     # connection.commit()
 
-    return redirect(url_for('index'))
+    return redirect(url_for('register', msg='Thank you for registering! Your credentials are being reviewed!'))
 
 
 @app.route('/login', methods=['GET'])

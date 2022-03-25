@@ -39,7 +39,7 @@ def get_res_time_percentage1(items):
                 values_medium += item['count']
             total_medium += item['count']
 
-    return int(values_low / total_low * 100) , int(values_medium / total_medium * 100)
+    return int(values_low / total_low * 100), int(values_medium / total_medium * 100)
 
 
 def get_res_time_percentage2(items):
@@ -152,26 +152,3 @@ def get_percentage_of_incidents_meeting_sla():
     percentage_high, percentage_critical = get_res_time_percentage2(data_json2['items'])
 
     return percentage_low, percentage_medium, percentage_high, percentage_critical
-
-
-print(get_percentage_of_incidents_meeting_sla())
-
-
-# 8. Number of incidences P1 in the month not meeting SLA resolution time
-def get_number_of_incidents_not_meeting_sla_res_time():
-    pass
-
-
-# 9. % of incidences P1 not meeting SLA
-def get_percentage_incidents_not_meeting_sla():
-    pass
-
-
-# 10. Average resolution time for incidences P1 meeting SLA
-def get_average_res_time_meeting_sla():
-    pass
-
-
-# 11. Average resolution time for incidences P1 not meeting SLA
-def get_average_res_time_not_meeting_sla():
-    pass

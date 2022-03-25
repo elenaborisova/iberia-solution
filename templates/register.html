@@ -12,9 +12,10 @@
 {% block main_content %}
     <div class="w3-content" style="max-width:2000px;margin-top:46px">
         <div id="animate-area">
-
+            {% block reg_msg %}
+                <h6>{{ msg }}</h6>
+            {% endblock %}
             <div class="container" id="container">
-
                 {% block form_input %}
                     <div class="form-container sign-in-container">
                         <form action="/register" method="POST">
@@ -40,7 +41,6 @@
                         </div>
                     </div>
                 {% endblock %}
-
             </div>
         </div>
     </div>
