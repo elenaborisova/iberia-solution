@@ -1,4 +1,6 @@
 import os
+from datetime import timedelta
+
 from flask import Flask, render_template, request, url_for, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename, redirect
@@ -11,6 +13,7 @@ from helpers import allowed_file, modify_uploaded_file
 app = Flask(__name__, static_url_path='/static', template_folder='templates')
 SECRET_KEY = os.urandom(32)
 app.config['SECRET_KEY'] = SECRET_KEY
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=5)
 
 UPLOAD_FOLDER = './file_uploads'
 ALLOWED_EXTENSIONS = {'xlsx', 'xlsm', 'xltx', 'xltm', 'xml'}
@@ -66,6 +69,7 @@ def handle_login():
     password = request.form['password']
 
     if username == 'elena' and password == 'elena':
+        session.permanent = True
         session['username'] = username
         return redirect(url_for('index'))
     else:
