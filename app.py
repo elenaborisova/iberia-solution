@@ -11,9 +11,8 @@ from helpers import allowed_file, modify_uploaded_file
 
 # Configuration
 app = Flask(__name__, static_url_path='/static', template_folder='templates')
-SECRET_KEY = os.urandom(32)
-app.config['SECRET_KEY'] = SECRET_KEY
-app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=5)
+app.config['SECRET_KEY'] = 'secret key'
+app.permanent_session_lifetime = timedelta(minutes=10)
 
 UPLOAD_FOLDER = './file_uploads'
 ALLOWED_EXTENSIONS = {'xlsx', 'xlsm', 'xltx', 'xltm', 'xml'}
@@ -94,7 +93,7 @@ def handle_login():
 
 @app.route('/logout')
 def logout():
-    session.pop('username')
+    session.pop('username', None)
     # session.pop('user_id')
 
     return redirect(url_for('index'))
