@@ -1,0 +1,28 @@
+{% extends 'shared/base.html' %}
+
+{% block site_title %}
+    Error
+{% endblock %}
+
+{% block style_links %}
+    <link rel="stylesheet" href="/static/css/403.css"/>
+{% endblock %}
+
+{% block main_content %}
+    <div class="w3-content" style="max-width:2000px;margin-top:46px">
+        <div class="container">
+            <img class="error_img" src="/static/img/iberia_error.jpeg"/>
+
+            <div class="error_msg">
+                <h1>403</h1>
+                <h2>Forbidden.</h2>
+                <p>You don't have access to access this page.
+                    Register here:
+                </p>
+                <form action="/register" method="GET">
+                    <button>REGISTER</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

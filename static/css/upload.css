@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+@keyframes animatedBackground {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: 2px 0;
+    }
+}
+
+@keyframes animatedBackground {
+    from {
+        background-position: -2px 0;
+    }
+    to {
+        background-position: 2px 0;
+    }
+}
+
+main {
+    font-family: 'Montserrat', sans-serif;
+    background: #f6f5f7;
+    width: 100%;
+    height: 100vh;
+    background-image: url('/static/img/sky2.jpeg');
+    background-size: cover;
+    background-repeat: repeat-x;
+    animation: animatedBackground linear infinite alternate;
+    animation-duration: 1.5s;
+    background-position-x: 0;
+    background-position-y: 360px;
+}
+
+.container {
+    border-radius: 10px;
+    box-shadow: 5px 14px 28px rgba(0, 0, 0, 0.92), 10px 10px 300px rgba(0, 0, 0, 0.2);
+    width: 768px;
+    max-width: 100%;
+    opacity: 0.8;
+    margin-left: 350px;
+    margin-top: 60px;
+    display: inline-block;
+    flex-direction: column;
+    padding: 30px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+button {
+    border-radius: 20px;
+    border: 1px solid #ff4b2b;
+    background: #ff4b2b;
+    opacity: 0.9;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px 20px;
+    letter-spacing: 1px;
+}
+
+.choose::-webkit-file-upload-button {
+    border-radius: 20px;
+    border: 1px solid #ff4b2b;
+    background: #ff4b2b;
+    opacity: 0.9;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px 20px;
+    letter-spacing: 1px;
+}
+
+.message {
+    width: 400px;
+    max-width: 100%;
+    padding: 30px;
+    margin-left: 500px;
+    margin-top: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.message img{
+    width: 20%;
+    height: 20%;
+}
+
+h6 {
+    font-size: 20px;
+    justify-content: center;
+    align-items: center;
+}

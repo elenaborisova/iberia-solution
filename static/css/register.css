@@ -1,4 +1,22 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+@keyframes animatedBackground {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 3px 0;
+  }
+}
+
+@keyframes animatedBackground {
+  from {
+    background-position: -3px 0;
+  }
+  to {
+    background-position: 3px 0;
+  }
+}
+
 
 * {
     box-sizing: border-box;
@@ -7,14 +25,18 @@
 main {
     font-family: 'Montserrat', sans-serif;
     background: #f6f5f7;
-    /*display: grid;*/
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
     height: 100vh;
-    /*margin: -20px 0 50px;*/
-    background-image: url(https://images.unsplash.com/photo-1500993855538-c6a99f437aa7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80);
+    background-image: url('/static/img/sky.jpeg');
     background-size: cover;
+    background-repeat: repeat-x;
+    animation: animatedBackground linear infinite alternate;
+    animation-duration: 1.5s;
+    background-position-x:0;
+    background-position-y:360px;
 }
 
 h1 {
@@ -34,13 +56,6 @@ p {
 span {
     font-size: 12px;
     color: beige;
-}
-
-.social {
-    color: #fff;
-    font-size: 14px;
-    text-decoration: none;
-    margin: 15px 0;
 }
 
 .container {
@@ -85,8 +100,6 @@ button {
     font-weight: bold;
     padding: 12px 45px;
     letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: transform 80ms ease-in;
     margin-top: 20px;
 }
 
@@ -98,12 +111,12 @@ input[name=username] {
     border-bottom: 1px solid #fff;
     font-family: 'PLay', sans-serif;
     font-size: 16px;
-    /*font-weight: 200px;*/
     padding: 10px 0;
     transition: border 0.5s;
     outline: none;
     color: #fff;
     font-weight: bold;
+    margin-top: 20px;
 }
 
 input[name=password] {
@@ -129,7 +142,6 @@ input[name=email] {
     border-bottom: 1px solid #fff;
     font-family: 'PLay', sans-serif;
     font-size: 16px;
-    /*font-weight: 200px;*/
     padding: 10px 0;
     transition: border 0.5s;
     outline: none;
@@ -138,24 +150,24 @@ input[name=email] {
 }
 
 button:active {
-    transform: scale(0.95);
+    transform: scale(0.5);
 }
 
 button:focus {
-    outline: none;
+    outline: red;
 }
 
 button.ghost {
     background: transparent;
     border-color: #ff4b2b;
-    background-color: #ff4b2b
+    background-color: #ff4b2b;
+    margin-top: 50px;
 }
 
 .form-container {
     position: absolute;
     top: 0;
     height: 100%;
-    transition: all 0.6s ease-in-out;
 }
 
 .sign-in-container {
@@ -171,20 +183,17 @@ button.ghost {
     width: 50%;
     height: 100%;
     overflow: hidden;
-    transition: transform 0.6s ease-in-out;
     z-index: 100;
 }
 
 .overlay {
     background: transparent;
-    background: linear-gradient(to right, #ff4b2b, #ff416c);
+    background: linear-gradient(to right, #9D9C9C, #3827C3);
     color: #fff;
     position: absolute;
     left: -100%;
     height: 100%;
     width: 200%;
-    transform: translateX(0);
-    transition: transform 0.6s ease-in-out;
 }
 
 .overlay-panel {
@@ -198,47 +207,9 @@ button.ghost {
     height: 100%;
     width: 50%;
     text-align: center;
-    transform: translateX(0);
-    transition: transform 0.6s ease-in-out;
 }
 
 .overlay-right {
     right: 0;
-    transform: translateX(0);
-}
-
-.overlay-left {
-    transform: translateX(-20%);
-}
-
-/*....Animation....*/
-
-/*....Move signin to the right....*/
-.container.right-panel-active .sign-in-container {
-    transform: translateX(100%);
-}
-
-/*....Move overlay to the left....*/
-.container.right-panel-active .overlay-container {
-    transform: translateX(-100%);
-}
-
-/*....Bring sign up over sign in....*/
-.container.right-panel-active .sign-up-container {
-    transform: translateX(100%);
-    opacity: 1;
-    z-index: 5;
-}
-
-/*...Move overlay back to right....*/
-.container.right-panel-active .overlay {
-    transform: translateX(50%);
-}
-
-.container.right-panel-active .overlay-left {
-    transform: translateX(0);
-}
-
-.container.right-panel-active .overlay-right {
-    transform: translateX(20%);
+    margin-top: 20px;
 }

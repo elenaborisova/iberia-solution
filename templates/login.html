@@ -1,5 +1,34 @@
-{% extends 'shared/base.html' %}
+{% extends 'register.html' %}
 
-{% block main_content %}
-
+{% block site_title %}
+    Log In
 {% endblock %}
+
+<div id="animate-area">
+
+{% block form_input %}
+    <div class="form-container sign-in-container">
+        <form action="/login" method="POST">
+            <h1>Log In</h1>
+            <span>Log in to your existing account</span>
+            <input name="username" id="username" type="text" placeholder="Username">
+            <input name="password" id="password" type="password" placeholder="Password">
+            <button type="submit">Log in</button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block overlay_section %}
+    <div class="overlay-container">
+        <div class="overlay">
+            <div style="margin-top: 10px" class="overlay-panel overlay-right">
+                <h1>Don't have an account yet?</h1>
+                <p>Register for Iberia Business Solutions</p>
+                <form action="/register" method="GET">
+                    <button style="margin-top: 30px" type="submit" class="ghost" id="signUp">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+</div>

@@ -1,0 +1,205 @@
+.insights {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /*gap: 0.2rem;*/
+}
+
+.insights > div {
+    background: #fff;
+    padding: 0.8rem;
+    border-radius: 2rem;
+    margin: 2rem 1rem 0 1rem;
+    box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
+    transition: all 300ms ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.insights > div:hover {
+    box-shadow: none;
+}
+
+
+.insights .progress {
+    position: relative;
+    width: 92px;
+    height: 92px;
+    border-radius: 50%;
+}
+
+
+.insights svg {
+    width: 7rem;
+    height: 7rem;
+}
+
+
+.insights h3 {
+    margin: 1rem 0 0.6rem;
+    font-size: 1rem;
+}
+
+
+.insights svg circle {
+    fill: none;
+    stroke: #7380ec;
+    stroke-width: 14;
+    stroke-linecap: round;
+    transform: translate(5px, 5px);
+    stroke-dasharray: 110;
+    stroke-dashoffset: 92;
+}
+
+
+.insights .low svg circle {
+    stroke-dashoffset: -30;
+    stroke-dasharray: 200;
+    stroke: #41f1b6;
+
+}
+
+.insights .medium svg circle {
+    stroke-dashoffset: -40;
+    stroke-dasharray: 200;
+    stroke: #ffbb55;
+}
+
+.insights .high svg circle {
+    stroke-dashoffset: 35;
+    stroke-dasharray: 110;
+    stroke: #ff7782;
+}
+
+.insights .critical svg circle {
+    stroke-dashoffset: 20;
+    stroke-dasharray: 80;
+    stroke: #7380ec;
+}
+
+
+.insights .progress .number {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.container {
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: space-evenly;
+}
+
+
+.container-pie {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-content: space-evenly;
+    margin-top: 100px;
+}
+
+
+h1 {
+    font-size: 20px;
+    color: black;
+    font-weight: bold;
+}
+
+
+#kpi1-chart {
+    margin-left: 30px;
+    margin-top: 20px;
+    width: 600px;
+    height: 300px;
+    border-style: solid;
+    border-color: rgba(201, 203, 207, 0.2);
+    border-radius: 5px;
+    border-width: 10px;
+}
+
+.kpi1 h1 {
+    margin-left: 120px;
+    margin-top: 60px;
+}
+
+#kpi3-chart {
+    margin-left: 20px;
+    margin-top: 20px;
+    /*margin-right: 30px;*/
+    width: 600px;
+    height: 300px;
+    border-style: solid;
+    border-color: rgba(201, 203, 207, 0.2);
+    border-radius: 5px;
+    border-width: 10px;
+}
+
+.kpi3 h1 {
+    margin-left: 100px;
+    margin-top: 60px;
+}
+
+#kpi2-chart {
+    margin-left: 30px;
+    margin-top: 20px;
+    width: 600px;
+    height: 300px;
+    border-style: solid;
+    border-color: rgba(201, 203, 207, 0.2);
+    border-radius: 5px;
+    border-width: 10px;
+}
+
+.kpi2 h1 {
+    margin-top: 100px;
+    margin-left: 100px;
+}
+
+
+#kpi4-chart {
+    margin-right: 30px;
+    margin-top: 20px;
+    margin-left: 30px;
+    width: 600px;
+    height: 300px;
+    border-style: solid;
+    border-color: rgba(201, 203, 207, 0.2);
+    border-radius: 5px;
+    border-width: 10px;
+}
+
+.kpi4 h1 {
+    margin-left: 60px;
+    margin-top: 100px;
+}
+
+#kpi5-chart {
+    margin-left: 30px;
+}
+
+.kpi5 h1 {
+    margin-left: 90px;
+}
+
+
+#kpi6-chart {
+    margin-left: 80px;
+}
+
+.kpi6 h1 {
+    margin-left: 140px;
+}
+
+#kpi7-chart {
+    margin-left: 70px;
+}
+
+.kpi7 h1 {
+    margin-left: 70px;
+}

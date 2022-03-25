@@ -1,11 +1,14 @@
 import os
-from flask import Flask, render_template, request, url_for
-from werkzeug.security import generate_password_hash
+from flask import Flask, render_template, request, url_for, session
+from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename, redirect
-import pandas as pd
-import requests
-import cx_Oracle
+# import cx_Oracle
 
+import kpi_data
+from helpers import allowed_file, modify_uploaded_file
+
+
+# Configuration
 app = Flask(__name__, static_url_path='/static', template_folder='templates')
 SECRET_KEY = os.urandom(32)
 app.config['SECRET_KEY'] = SECRET_KEY
@@ -15,14 +18,12 @@ ALLOWED_EXTENSIONS = {'xlsx', 'xlsm', 'xltx', 'xltm', 'xml'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1000 * 1000
 
-os.environ['TNS_ADMIN'] = '/Users/elenaborisova/Documents/GitHub/iberia-solution/wallet'
-lib_dir = os.path.join(os.environ.get("HOME"), "Downloads", "instantclient_19_8")
-cx_Oracle.init_oracle_client(lib_dir=lib_dir)
-connection = cx_Oracle.connect("tip", "AaZZ0r_cle#1", "iberiadb_medium")
-cursor = connection.cursor()
-# cursor.execute("select * from MONTHLY_INCIDENTS_RAISED where inc_code = 'INC000001470894'")
-# r = cursor.fetchone()
-# print(r)
+# # Oracle Client config
+# os.environ['TNS_ADMIN'] = '/Users/elenaborisova/Documents/GitHub/iberia-solution/wallet'
+# lib_dir = os.path.join(os.environ.get('HOME'), 'Downloads', 'instantclient_19_8')
+# cx_Oracle.init_oracle_client(lib_dir=lib_dir)
+# connection = cx_Oracle.connect('tip', 'AaZZ0r_cle#1', 'iberiadb_medium')
+# cursor = connection.cursor()
 
 
 @app.route('/')
@@ -30,52 +31,73 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/register')
+@app.route('/register', methods=['GET'])
 def register():
     return render_template('register.html')
 
 
 @app.route('/register', methods=['POST'])
 def handle_register():
-    pass
+    # username = request.form['username']
+    # email = request.form['email']
+    # password = request.form['password']
+    # hashed_password = generate_password_hash(password)
+    #
+    # insert_query = f'''
+    #             INSERT INTO registered_users(username, email, password)
+    #             VALUES ('{username}', '{email}', '{hashed_password}')
+    #             '''
+    # cursor.execute(insert_query)
+    # connection.commit()
+
+    return redirect(url_for('index'))
 
 
-@app.route('/login')
+@app.route('/login', methods=['GET'])
 def login():
     return render_template('login.html')
 
 
 @app.route('/login', methods=['POST'])
 def handle_login():
-    pass
+    username = request.form['username']
+    password = request.form['password']
+
+    if username == 'elena' and password == 'elena':
+        return redirect(url_for('index'))
+    else:
+        return render_template('403.html'), 403
+
+    # login_query = f'''
+    # SELECT user_id, password
+    # FROM authorized_users
+    # WHERE username='{username}'
+    # '''
+    # cursor.execute(login_query)
+    # connection.commit()
+    # user = cursor.fetchone()
+    #
+    # if user and check_password_hash(user[1], password):
+    #     session['user_id'] = user[1]
+    #     session['username'] = username
+    #     return redirect(url_for('index'))
+    # else:
+    #     return render_template('403.html'), 403
 
 
 @app.route('/logout')
 def logout():
-    pass
+    session.pop('username')
+    session.pop('user_id')
+
+    return redirect(url_for('index'))
 
 
-@app.route('/dashboard')
-def dashboard():
-    return render_template('dashboard.html')
-
-
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-
-def modify_uploaded_file(filename):
-    read_file = pd.read_excel(f'./file_uploads/{filename}')
-    clean_filename = filename.rsplit('.', 1)[0]
-    read_file.to_csv(f'./file_uploads/{clean_filename}.csv', index=None, header=False)
-    os.remove(f'./file_uploads/{filename}')
-    return f'{clean_filename}.csv'
-
-
-@app.route('/upload/', defaults={'msg': None})
+@app.route('/upload/', defaults={'msg': ' '})
 @app.route('/upload/<msg>')
 def upload_file(msg):
+    if 'user_id' not in session:
+        return render_template('403.html'), 403
     return render_template('upload.html', msg=msg)
 
 
@@ -89,22 +111,33 @@ def handle_upload():
         if file.filename == '':
             return redirect(url_for('upload_file', msg='No selected file'))
 
-        if not allowed_file(file.filename):
+        if not allowed_file(file.filename, ALLOWED_EXTENSIONS):
             return redirect(url_for('upload_file', msg='Invalid file format'))
 
         if file:
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            filename_csv = modify_uploaded_file(filename)
-            process_incraised_data(filename_csv)
-            return redirect(url_for('upload_file', msg='File uploaded successfully'))
+            modify_uploaded_file(filename)
+            return redirect(url_for('upload_file', msg='File uploaded successfully!'))
 
 
-def process_incraised_data(filename):
-    # headers = CaseInsensitiveDict()
-    # headers["Accept"] = "application/json"
-    url = 'https://g5cb9edca1cffa5-iberiadb.adb.eu-milan-1.oraclecloudapps.com/ords/tip/monthly_incidents_raised/incraised/'
-    data = requests.get(url)
+@app.route('/dash')
+def dashboard():
+    # if 'user_id' not in session:
+    #     return render_template('403.html'), 403
+
+    data = {
+        'kpi1': kpi_data.get_total_number_of_critical_incidents(),
+        'kpi2': kpi_data.get_total_number_of_incidents_per_priority(),
+        'kpi3': kpi_data.get_total_number_of_incidents(),
+        'kpi4': kpi_data.get_number_of_incidents_backlog_per_priority(),
+        'kpi5': kpi_data.get_number_of_incidents_per_cause(),
+        'kpi6': kpi_data.get_number_of_incidents_per_status(),
+        'kpi7': kpi_data.get_number_of_incidents_per_company_group(),
+        'kpi8': kpi_data.get_percentage_of_incidents_meeting_sla(),
+    }
+
+    return render_template('dashboard.html', data=data)
 
 
 if __name__ == '__main__':

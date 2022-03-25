@@ -1,0 +1,8 @@
+iberiadb_high = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.eu-milan-1.oraclecloud.com))(connect_data=(service_name=g5cb9edca1cffa5_iberiadb_high.adb.oraclecloud.com))(security=(ssl_server_cert_dn="CN=adb.eu-milan-1.oraclecloud.com, OU=Oracle ADB MILAN, O=Oracle Corporation, L=Redwood City, ST=California, C=US")))
+
+iberiadb_low = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.eu-milan-1.oraclecloud.com))(connect_data=(service_name=g5cb9edca1cffa5_iberiadb_low.adb.oraclecloud.com))(security=(ssl_server_cert_dn="CN=adb.eu-milan-1.oraclecloud.com, OU=Oracle ADB MILAN, O=Oracle Corporation, L=Redwood City, ST=California, C=US")))
+
+iberiadb_medium = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.eu-milan-1.oraclecloud.com))(connect_data=(service_name=g5cb9edca1cffa5_iberiadb_medium.adb.oraclecloud.com))(security=(ssl_server_cert_dn="CN=adb.eu-milan-1.oraclecloud.com, OU=Oracle ADB MILAN, O=Oracle Corporation, L=Redwood City, ST=California, C=US")))
+
+
+

@@ -4,10 +4,15 @@
         <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right"
            href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i
                 class="fa fa-bars"></i></a>
-        <a href="/" class="w3-bar-item w3-button w3-padding-large">HOME</a>
-        <a href="/dashboard" class="w3-bar-item w3-button w3-padding-large w3-hide-small">DASHBOARD</a>
-        <a href="/upload" class="w3-bar-item w3-button w3-padding-large w3-hide-small">UPLOAD FILE</a>
-        <a href="/login" class="w3-bar-item w3-button w3-padding-large w3-hide-small">LOG IN</a>
-        <a href="/register" class="w3-bar-item w3-button w3-padding-large w3-hide-small">REGISTER</a>
+        {% if not session['username'] %}
+            <a href="/login" class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-right">LOG IN</a>
+            <a href="/register" class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-right">REGISTER</a>
+        {% else %}
+            <a href="/logout" class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-right">LOG OUT</a>
+        {% endif %}
+        <a href="/upload" class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-right">UPLOAD FILE</a>
+        <a href="/dash" class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-right">DASHBOARD</a>
+        <a href="/" class="w3-bar-item w3-button w3-padding-large w3-right">HOME</a>
     </div>
 </div>
+

@@ -1,5 +1,404 @@
 {% extends 'shared/base.html' %}
 
+{% block site_title %}
+    Dashboard
+{% endblock %}
+
+{% block style_links %}
+    <link rel="stylesheet" type="text/css" href="/static/css/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+{% endblock %}
+
 {% block main_content %}
+
+    <div class="w3-content" style="max-width:2000px;margin-top:46px">
+        <div class="insights">
+            <div class="low">
+                <h3><strong>LOW</strong> priority meeting SLA</h3>
+                <div class="progress">
+                    <svg>
+                        <circle r="36" cx="38" cy="38"></circle>
+                    </svg>
+                    <div class="number">
+                        <p>{{ data['kpi8'][0] }}%</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="medium">
+                <h3><strong>MEDIUM</strong> priority meeting SLA</h3>
+                <div class="progress">
+                    <svg>
+                        <circle r="36" cx="38" cy="38"></circle>
+                    </svg>
+                    <div class="number">
+                        <p>{{ data['kpi8'][1] }}%</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="high">
+                <h3><strong>HIGH</strong> priority meeting SLA</h3>
+                <div class="progress">
+                    <svg>
+                        <circle r="36" cx="38" cy="38"></circle>
+                    </svg>
+                    <div class="number">
+                        <p>{{ data['kpi8'][2] }}%</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="critical">
+                <h3><strong>CRITICAL</strong> priority meeting SLA</h3>
+                <div class="progress">
+                    <svg>
+                        <circle r="36" cx="38" cy="38"></circle>
+                    </svg>
+                    <div class="number">
+                        <p>{{ data['kpi8'][3] }}%</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="container">
+            <div class="kpi1">
+                <h1>Total number of critical incidents (P1) per month</h1>
+                <canvas id="kpi1-chart"></canvas>
+                <script>
+                    let ctx1 = document.getElementById('kpi1-chart').getContext('2d')
+
+                    let barChart1 = new Chart(ctx1, {
+                        type: 'bar',
+                        data: {
+                            labels: {{ data['kpi1'][0] | safe }},
+                            datasets: [{
+                                label: 'Critical incidents',
+                                data: {{ data['kpi1'][1] | safe }},
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(255, 159, 64, 0.2)',
+                                    'rgba(255, 205, 86, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(153, 102, 255, 0.2)',
+                                    'rgba(201, 203, 207, 0.2)',
+                                    'rgba(201, 203, 207, 0.2)',
+                                    'rgba(153, 102, 255, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)',
+                                    'rgba(255, 205, 86, 0.2)',
+                                    'rgba(255, 159, 64, 0.2)'
+                                ],
+                                borderColor: [
+                                    'rgb(255, 99, 132)',
+                                    'rgb(255, 159, 64)',
+                                    'rgb(255, 205, 86)',
+                                    'rgb(75, 192, 192)',
+                                    'rgb(54, 162, 235)',
+                                    'rgb(153, 102, 255)',
+                                    'rgb(201, 203, 207)',
+                                    'rgb(255, 99, 132)',
+                                    'rgb(255, 159, 64)',
+                                    'rgb(255, 205, 86)',
+                                    'rgb(75, 192, 192)',
+                                    'rgb(54, 162, 235)',
+                                    'rgb(153, 102, 255)'
+                                ],
+                                borderWidth: 1
+                            }]
+
+                        },
+                        options: {
+                            responsive: false
+                        }
+                    });
+
+                </script>
+            </div>
+
+            <div class="kpi3">
+                <h1>Total number of incidents raised per month</h1>
+                <canvas id="kpi3-chart"></canvas>
+                <script>
+
+                    let ctx3 = document.getElementById('kpi3-chart').getContext('2d')
+
+                    let barChart3 = new Chart(ctx3, {
+                        type: 'bar',
+                        data: {
+                            labels: {{ data['kpi3'][0] | safe }},
+                            datasets: [{
+                                label: 'Total incidents',
+                                data: {{ data['kpi3'][1] | safe }},
+                                backgroundColor: [
+                                    'rgba(201, 203, 207, 0.2)',
+                                    'rgba(153, 102, 255, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)',
+                                    'rgba(255, 205, 86, 0.2)',
+                                    'rgba(255, 159, 64, 0.2)',
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(201, 203, 207, 0.2)',
+                                    'rgba(153, 102, 255, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)',
+                                    'rgba(255, 205, 86, 0.2)',
+                                    'rgba(255, 159, 64, 0.2)'
+                                ],
+                                borderColor: [
+                                    'rgb(201, 203, 207)',
+                                    'rgb(153, 102, 255)',
+                                    'rgb(54, 162, 235)',
+                                    'rgb(75, 192, 192)',
+                                    'rgb(255, 205, 86)',
+                                    'rgb(255, 159, 64)',
+                                    'rgb(255, 99, 132)',
+                                    'rgb(201, 203, 207)',
+                                    'rgb(153, 102, 255)',
+                                    'rgb(54, 162, 235)',
+                                    'rgb(75, 192, 192)',
+                                    'rgb(255, 205, 86)',
+                                    'rgb(255, 159, 64)'
+                                ],
+                                borderWidth: 1
+                            }]
+
+                        },
+                        options: {
+                            responsive: false
+                        }
+                    });
+                </script>
+            </div>
+
+            <div class="kpi2">
+
+                <h1>Number of incidents raised per priority in the month</h1>
+                <canvas id="kpi2-chart"></canvas>
+                <script>
+
+                    let ctx2 = document.getElementById('kpi2-chart').getContext('2d')
+
+                    let barChart2 = new Chart(ctx2, {
+                        type: 'bar',
+                        data: {
+                            labels: {{ data['kpi2'][0] | safe }},
+                            datasets: [{
+                                label: "Low",
+                                data: {{ data['kpi2'][1] | safe }},
+                                backgroundColor: 'rgba(145,206,145,0.8)',
+                                borderColor: 'rgba(0,255,0,0.8)',
+                                borderWidth: 1
+                            }, {
+                                label: "Medium",
+                                data: {{ data['kpi2'][2] | safe }},
+                                backgroundColor: 'rgba(232,229,151,0.8)',
+                                borderColor: 'rgba(252,237,1,0.8)',
+                                borderWidth: 1
+                            }, {
+                                label: "High",
+                                data: {{ data['kpi2'][3] | safe }},
+                                backgroundColor: 'rgba(236,147,180,0.8)',
+                                borderColor: 'rgba(245,5,95,0.8)',
+                                borderWidth: 1
+                            }, {
+                                label: "Critical",
+                                data: {{ data['kpi2'][4] | safe }},
+                                backgroundColor: 'rgba(165,21,67,0.8)',
+                                borderColor: 'rgba(245,5,95,0.8)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            legend: false
+                        }
+                    });
+
+                </script>
+
+            </div>
+
+            <div class="kpi4">
+
+                <h1>Number of incidents in the backlog per priority in the month</h1>
+                <canvas id="kpi4-chart"></canvas>
+                <script>
+
+                    let ctx4 = document.getElementById('kpi4-chart').getContext('2d')
+
+                    let barChart4 = new Chart(ctx4, {
+                        type: 'bar',
+                        data: {
+                            labels: {{ data['kpi4'][0] | safe }},
+                            datasets: [{
+                                label: "Low",
+                                data: {{ data['kpi4'][1] | safe }},
+                                backgroundColor: 'rgba(145,206,145,0.8)',
+                                borderColor: 'rgba(0,255,0,0.8)',
+                                borderWidth: 1
+                            }, {
+                                label: "Medium",
+                                data: {{ data['kpi4'][2] | safe }},
+                                backgroundColor: 'rgba(232,229,151,0.8)',
+                                borderColor: 'rgba(252,237,1,0.8)',
+                                borderWidth: 1
+
+                            }, {
+                                label: "High",
+                                data: {{ data['kpi4'][3] | safe }},
+                                backgroundColor: 'rgba(236,147,180,0.8)',
+                                borderColor: 'rgba(245,5,95,0.8)',
+                                borderWidth: 1
+                            }, {
+                                label: "Critical",
+                                data: {{ data['kpi4'][4] | safe }},
+                                backgroundColor: 'rgba(165,21,67,0.8)',
+                                borderColor: 'rgba(245,5,95,0.8)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            legend: false
+                        }
+                    });
+
+                </script>
+
+            </div>
+        </div>
+
+        <div class="container-pie">
+
+            <div class="kpi5">
+                <h1>Incidents per cause</h1>
+                <canvas id="kpi5-chart"></canvas>
+                <script>
+
+                    let ctx5 = document.getElementById('kpi5-chart').getContext('2d')
+
+                    let barChart5 = new Chart(ctx5, {
+                        type: 'pie',
+                        data: {
+                            labels: {{ data['kpi5'][0] | safe }},
+                            datasets: [{
+                                label: 'Incidents per cause',
+                                data: {{ data['kpi5'][1] | safe }},
+                                backgroundColor: [
+                                    "rgb(233, 30, 99)",
+                                    "rgb(255, 193, 7)",
+                                    "rgb(0, 188, 212)",
+                                    "rgb(139, 195, 74)",
+                                    "rgb(138, 119, 222)"
+                                ],
+                                borderColor: [
+                                    "rgb(254, 254, 253)"
+                                ],
+                                borderWidth: 1
+                            }]
+
+                        },
+                        options: {
+                            responsive: false,
+                            plugins: {
+                                legend: {
+                                    display: true,
+                                    position: 'left'
+                                },
+                            }
+                        }
+                    });
+                </script>
+            </div>
+
+            <div class="kpi6">
+                <h1>Incidents per status</h1>
+                <canvas id="kpi6-chart"></canvas>
+                <script>
+
+                    let ctx6 = document.getElementById('kpi6-chart').getContext('2d')
+
+                    let barChart6 = new Chart(ctx6, {
+                        type: 'pie',
+                        data: {
+                            labels: {{ data['kpi6'][0] | safe }},
+                            datasets: [{
+                                label: 'Incidents per status',
+                                data: {{ data['kpi6'][1] | safe }},
+                                backgroundColor: [
+                                    "rgb(138, 119, 222)",
+                                    "rgb(139, 195, 74)",
+                                    "rgb(0, 188, 212)",
+                                    "rgb(255, 193, 7)",
+                                    "rgb(233, 30, 99)"
+                                ],
+                                borderColor: [
+                                    "rgb(254, 254, 253)"
+                                ],
+                                borderWidth: 1
+                            }]
+
+                        },
+                        options: {
+                            responsive: false,
+                            plugins: {
+                                legend: {
+                                    display: true,
+                                    position: 'left'
+                                },
+                            }
+                        }
+                    });
+                </script>
+            </div>
+
+            <div class="kpi7">
+                <h1>Incidents per customer company group</h1>
+                <canvas id="kpi7-chart"></canvas>
+                <script>
+
+                    let ctx7 = document.getElementById('kpi7-chart').getContext('2d')
+
+                    let barChart7 = new Chart(ctx7, {
+                        type: 'pie',
+                        data: {
+                            labels: {{ data['kpi7'][0] | safe }},
+                            datasets: [{
+                                label: 'Incidents per company group',
+                                data: {{ data['kpi7'][1] | safe }},
+                                backgroundColor: [
+                                    "rgb(0, 188, 212)",
+                                    "rgb(233, 30, 99)",
+                                    "rgb(255, 193, 7)",
+                                    "rgb(139, 195, 74)",
+                                    "rgb(138, 119, 222)"
+                                ],
+                                borderColor: [
+                                    "rgb(254, 254, 253)"
+                                ],
+                                borderWidth: 1
+                            }]
+
+                        },
+                        options: {
+                            responsive: false,
+                            plugins: {
+                                legend: {
+                                    display: true,
+                                    position: 'left'
+                                },
+                            }
+                        }
+                    });
+                </script>
+            </div>
+
+        </div>
+    </div>
 
 {% endblock %}

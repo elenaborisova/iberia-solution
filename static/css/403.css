@@ -1,0 +1,36 @@
+.container {
+    font-family: 'Montserrat', sans-serif;
+    width: 100%;
+    height: 100vh;
+    background: white;
+}
+
+.error_img {
+    width: 50%;
+    height: 50%;
+    float: left;
+    margin-top: 180px;
+    margin-left: 90px;
+}
+
+.error_msg {
+    width: 50%;
+    height: 50%;
+    display: block;
+    justify-content: center;
+    position: absolute;
+    margin-left: 800px;
+    margin-top: 200px;
+}
+
+button {
+    border-radius: 20px;
+    border: 1px solid #ff4b2b;
+    background: #ff4b2b;
+    opacity: 0.9;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px 20px;
+    letter-spacing: 1px;
+}
