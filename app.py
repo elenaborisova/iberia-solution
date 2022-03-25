@@ -64,6 +64,7 @@ def handle_login():
     password = request.form['password']
 
     if username == 'elena' and password == 'elena':
+        session['username'] = username
         return redirect(url_for('index'))
     else:
         return render_template('403.html'), 403
@@ -88,7 +89,7 @@ def handle_login():
 @app.route('/logout')
 def logout():
     session.pop('username')
-    session.pop('user_id')
+    # session.pop('user_id')
 
     return redirect(url_for('index'))
 
@@ -96,7 +97,7 @@ def logout():
 @app.route('/upload/', defaults={'msg': ' '})
 @app.route('/upload/<msg>')
 def upload_file(msg):
-    if 'user_id' not in session:
+    if 'username' not in session:
         return render_template('403.html'), 403
     return render_template('upload.html', msg=msg)
 
@@ -123,8 +124,8 @@ def handle_upload():
 
 @app.route('/dash')
 def dashboard():
-    # if 'user_id' not in session:
-    #     return render_template('403.html'), 403
+    if 'username' not in session:
+        return render_template('403.html'), 403
 
     data = {
         'kpi1': kpi_data.get_total_number_of_critical_incidents(),
