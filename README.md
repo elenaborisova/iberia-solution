@@ -6,3 +6,8 @@
 * _Backend:_ Python/Flask
 * _Frontend:_ HTML/CSS/JS
 * _Deployment:_ Heroku
+
+
+### Login Credentials:
+* _username:_ elena
+* _password:_ elena
